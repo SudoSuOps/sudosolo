@@ -76,7 +76,6 @@ export default function VaultPage() {
         {isLoading ? 'Depositing...' : 'Deposit'}
       </button>
 
-      {/* Withdraw button only for owner */}
       {address && address.toLowerCase() === owner?.toLowerCase() && (
         <button
           onClick={handleWithdraw}
