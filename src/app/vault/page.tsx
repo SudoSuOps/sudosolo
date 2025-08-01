@@ -16,13 +16,14 @@ export default function VaultPage() {
   const { address } = useAccount()
   const [amount, setAmount] = useState('0.01')
 
-  // Read vault balance & owner
+  // Read vault balance
   const { data: vaultBalance } = useReadContract({
     abi: VAULT_ABI,
     address: VAULT_ADDRESS,
     functionName: 'vaultBalance'
   })
 
+  // Read contract owner
   const { data: owner } = useReadContract({
     abi: VAULT_ABI,
     address: VAULT_ADDRESS,
