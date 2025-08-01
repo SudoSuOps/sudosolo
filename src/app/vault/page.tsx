@@ -1,7 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
+import {
+  useAccount,
+  useReadContract,
+  useWriteContract,
+  useWaitForTransactionReceipt
+} from 'wagmi'
 import { parseEther } from 'viem'
 import { VAULT_ABI } from '@/lib/abi/vault'
 
@@ -15,13 +20,13 @@ export default function VaultPage() {
   const { data: vaultBalance } = useReadContract({
     abi: VAULT_ABI,
     address: VAULT_ADDRESS,
-    functionName: 'vaultBalance',
+    functionName: 'vaultBalance'
   })
 
   const { data: owner } = useReadContract({
     abi: VAULT_ABI,
     address: VAULT_ADDRESS,
-    functionName: 'owner',
+    functionName: 'owner'
   })
 
   // Write functions
@@ -33,7 +38,7 @@ export default function VaultPage() {
       abi: VAULT_ABI,
       address: VAULT_ADDRESS,
       functionName: 'deposit',
-      value: parseEther(amount),
+      value: parseEther(amount)
     })
   }
 
@@ -43,7 +48,7 @@ export default function VaultPage() {
       abi: VAULT_ABI,
       address: VAULT_ADDRESS,
       functionName: 'withdraw',
-      args: [address as `0x${string}`], // type-safe non-null address
+      args: [address as `0x${string}`]
     })
   }
 
