@@ -11,12 +11,11 @@ export default function VaultPage() {
   const { address } = useAccount()
   const [amount, setAmount] = useState('0.01')
 
-  // Read vault balance & owner (auto-refresh)
+  // Read vault balance & owner
   const { data: vaultBalance } = useReadContract({
     abi: VAULT_ABI,
     address: VAULT_ADDRESS,
     functionName: 'vaultBalance',
-    watch: true,
   })
 
   const { data: owner } = useReadContract({
@@ -39,11 +38,12 @@ export default function VaultPage() {
   }
 
   const handleWithdraw = () => {
+    if (!address) return
     writeContract({
       abi: VAULT_ABI,
       address: VAULT_ADDRESS,
       functionName: 'withdraw',
-      args: [address], // send funds to connected wallet
+      args: [address as `0x${string}`], // type-safe non-null address
     })
   }
 
@@ -71,7 +71,7 @@ export default function VaultPage() {
       </button>
 
       {/* Withdraw button only for owner */}
-      {address?.toLowerCase() === owner?.toLowerCase() && (
+      {address && address.toLowerCase() === owner?.toLowerCase() && (
         <button
           onClick={handleWithdraw}
           disabled={isLoading}
